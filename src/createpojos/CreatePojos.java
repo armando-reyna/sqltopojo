@@ -7,13 +7,11 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class CreatePojos {
     
     public ArrayList<String> pojos;
     private int cont;
-    Date fecha;
     
     public CreatePojos(){
     }
@@ -84,15 +82,23 @@ public class CreatePojos {
                 x = cadena.indexOf('(');
                 y = cadena.indexOf(';',x);
                 aux = cadena.substring(x,y);
-                while (aux.indexOf("null") > -1){
+                while (aux.indexOf('`') > -1 && aux.indexOf("\n") > -1){
                     h = aux.indexOf('`');
-                    j = aux.indexOf("null");
-                    atributos = atributos + aux.substring(h, j+4) + "\n";
-                    aux = aux.substring(j+4);
+                    j = aux.indexOf('\n');
+                    atributos = atributos + aux.substring(h, j) + "\n";
+                    aux = aux.substring(j);
+                    System.out.println(atributos);
                 }
                 if((k=aux.indexOf("timestamp")) > -1){
                     k = k + 9;
                     atributos = atributos + aux.substring(aux.indexOf('`'),k) + "\n";
+                    aux = aux.substring(k);
+                }
+                while((k=aux.indexOf("constraint"))>-1){
+                    k = k - 1;
+                    aux = aux.substring(k);
+                    atributos = atributos + aux.substring(0,aux.indexOf('\n')+1);
+                    aux = aux.substring(aux.indexOf('\n')+1);
                 }
             } 
         }
