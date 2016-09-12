@@ -27,7 +27,7 @@ class ForeingKey {
     public String getTabla() {
         String nombre = this.tabla;
         int k;
-        if(nombre.contains("tab_") || nombre.contains("cat_")){
+        if(nombre.contains("tab_") ){
             nombre = nombre.substring(4);
         }
             
@@ -56,7 +56,7 @@ class ForeingKey {
     public String getTablaNombre() {
         String nombre = this.tabla;
         int k;
-        if(nombre.contains("tab_") || nombre.contains("cat_")){
+        if(nombre.contains("tab_") ){
             nombre = nombre.substring(4);
             String ini = "" + nombre.charAt(0);
             nombre = ini.toUpperCase() + nombre.substring(1);

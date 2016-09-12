@@ -16,7 +16,6 @@ public class Atributo {
         boolean bandera = false;
         while(i<fk.size()){
             if(fk.get(i).compara(nombre)){
-                //System.out.println();
                 this.nombre = fk.get(i).getTabla();
                 this.tipo = fk.get(i).getTablaNombre();
                 bandera = true;

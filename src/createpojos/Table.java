@@ -24,7 +24,7 @@ public class Table {
     public Table(String nombre, String atributos){
         int k;
         bandera = false;
-        if(nombre.contains("tab_") || nombre.contains("cat_")){
+        if(nombre.contains("tab_") ){
             nombre = nombre.substring(4);
             String ini = "" + nombre.charAt(0);
             nombre = ini.toUpperCase() + nombre.substring(1);
@@ -81,53 +81,61 @@ public class Table {
             ForeingKey fk;
             String aux1 = "";
             while(constraint.contains("constraint")){
-                //System.out.println(constraint);
                 if (constraint.indexOf(',') > -1) {
-                    j = constraint.indexOf('\n');
-                    //System.out.println(j);
+                    j = constraint.indexOf(',');
                     aux1 = constraint.substring(0,j);
-                    fk = new ForeingKey(aux1);
-                    key.add(fk);
-                    //System.out.println(constraint);
-                    constraint = constraint.substring(j);
+                    if(aux1.contains("constraint")){
+                        fk = new ForeingKey(aux1);
+                        key.add(fk);
+                    }
+                    constraint = constraint.substring(j+1);
                 }
                 else{
                     fk = new ForeingKey(constraint);
                     key.add(fk);
-                    //System.out.println(constraint);
                     constraint = "";
                 }
-
             }   
         }
         
         at = new ArrayList();
-        while(aux.indexOf('\n') > -1){
-            prueba = aux.substring(0,aux.indexOf('\n'));
-            
-            if(prueba.contains("int")){
-                type = "int";
+        while(aux.indexOf(',') > -1){
+            prueba = aux.substring(0,aux.indexOf(','));
+            if(!prueba.contains("primary key")){
+                if(prueba.contains("int")){
+                    type = "int";
+                }
+                if(prueba.contains("varchar")){
+                    type = "String";
+                }
+                if(prueba.contains("text")){
+                    type = "String";
+                }
+                if(prueba.contains("double") || prueba.contains("numeric")){
+                    type = "double";
+                }
+                if(prueba.contains("timestamp") || prueba.contains("date")){
+                    bandera = true ;
+                    type = "Date";
+                }
+                if(prueba.contains("enum")){
+                    type = "String";
+                }
+                i = prueba.indexOf('`');
+                if(i > -1){
+                    name = prueba.substring(i+1, prueba.indexOf('`', i+1));
+                    a = new Atributo(name, type, key);
+                    aux = aux.substring(aux.indexOf(','));
+                    at.add(a);
+                }
+                else{
+                    aux = aux.substring(aux.indexOf(',')+1);
+                }
             }
-            if(prueba.contains("varchar")){
-                type = "String";
+            else{
+                prueba = ""; 
+                break;
             }
-            if(prueba.contains("text")){
-                type = "String";
-            }
-            if(prueba.contains("double") || prueba.contains("numeric")){
-                type = "double";
-            }
-            if(prueba.contains("timestamp") || prueba.contains("date")){
-                bandera = true ;
-                type = "Date";
-            } 
-            i = prueba.indexOf('`');
-            name = prueba.substring(i+1, prueba.indexOf('`', i+1));
-            a = new Atributo(name, type, key);
-            
-            aux = aux.substring(aux.indexOf('\n')+1);
-            
-            at.add(a);
         }
     }
     

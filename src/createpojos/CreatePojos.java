@@ -80,26 +80,9 @@ public class CreatePojos {
             cadena = pojos.get(i);
             if (cadena.indexOf(select) > -1) {
                 x = cadena.indexOf('(');
-                y = cadena.indexOf(';',x);
-                aux = cadena.substring(x,y);
-                while (aux.indexOf('`') > -1 && aux.indexOf("\n") > -1){
-                    h = aux.indexOf('`');
-                    j = aux.indexOf('\n');
-                    atributos = atributos + aux.substring(h, j) + "\n";
-                    aux = aux.substring(j);
-                    System.out.println(atributos);
-                }
-                if((k=aux.indexOf("timestamp")) > -1){
-                    k = k + 9;
-                    atributos = atributos + aux.substring(aux.indexOf('`'),k) + "\n";
-                    aux = aux.substring(k);
-                }
-                while((k=aux.indexOf("constraint"))>-1){
-                    k = k - 1;
-                    aux = aux.substring(k);
-                    atributos = atributos + aux.substring(0,aux.indexOf('\n')+1);
-                    aux = aux.substring(aux.indexOf('\n')+1);
-                }
+                y = cadena.lastIndexOf(')');
+                aux = cadena.substring(x+1,y);
+                atributos = aux;
             } 
         }
         else
