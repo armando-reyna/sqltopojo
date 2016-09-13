@@ -30,14 +30,12 @@ class ForeingKey {
         if(nombre.contains("tab_") ){
             nombre = nombre.substring(4);
         }
-            
+        
         while(( k = nombre.indexOf('_'))>-1){
-            String ini = "" + nombre.charAt(0);
-            String a = "" + nombre.charAt(k+1);
-            String aux = ini.toUpperCase() + nombre.substring(1,k);
-            aux = aux + a.toUpperCase() +nombre.substring(k+2);
-            nombre = aux;
-        }
+                    String a = "" + nombre.charAt(k+1);
+                    String aux = nombre.substring(0,k);
+                    nombre = aux + a.toUpperCase() +nombre.substring(k+2);   
+                }   
         return nombre;
     }
 
@@ -58,10 +56,9 @@ class ForeingKey {
         int k;
         if(nombre.contains("tab_") ){
             nombre = nombre.substring(4);
-            String ini = "" + nombre.charAt(0);
-            nombre = ini.toUpperCase() + nombre.substring(1);
         }
-        
+        String ini = "" + nombre.charAt(0);
+        nombre = ini.toUpperCase() + nombre.substring(1);
         while(( k = nombre.indexOf('_'))>-1){
                 String a = "" + nombre.charAt(k+1);
                 String aux = nombre.substring(0,k);

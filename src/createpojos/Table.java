@@ -140,12 +140,12 @@ public class Table {
     }
     
     public void savePojo (String ruta, String paquete) throws IOException{
-        String doc = paquete + ";\n\nimport javax.persistence.*;\nimport java.io.Serializable;\n";
+        String doc = "package " + paquete + ";\n\nimport javax.persistence.*;\nimport java.io.Serializable;\n";
         if (bandera){
-            doc = doc + "import java.util.Date;\n\n public class " + nombre + "  implements Serializable {\n";
+            doc = doc + "import java.util.Date;\n\n public class " + nombre + " implements Serializable {\n";
         }
         else
-            doc = doc + "\npublic class " + nombre + "  implements Serializable {\n";
+            doc = doc + "\npublic class " + nombre + " implements Serializable {\n";
         
         doc = doc + "\n\t@Id\n\t@GeneratedValue\n \t@Column(name = \"id\")\n";
         for(int i=0;i<at.size();i++){
@@ -154,7 +154,12 @@ public class Table {
             doc = doc + "\tprivate " + at.get(i).getTipo() + " " + at.get(i).getNombre() + ";\n" ;
             
         }
-        doc = doc + "}";
+        
+        for (int y = 0;y<at.size();y++){
+            doc = doc + at.get(y).getCode();
+        }
+        
+        doc = doc + "\n}";
         File archivo = new File(ruta+"\\"+nombre+".java");
         BufferedWriter bw;
         if(archivo.exists()) {
