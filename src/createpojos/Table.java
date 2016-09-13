@@ -140,12 +140,26 @@ public class Table {
     }
     
     public void savePojo (String ruta, String paquete) throws IOException{
-        String doc = "package " + paquete + ";\n\nimport javax.persistence.*;\nimport java.io.Serializable;\n";
-        if (bandera){
-            doc = doc + "import java.util.Date;\n\n public class " + nombre + " implements Serializable {\n";
+        String aux = this.nombre;
+        
+        if (this.nombre.contains("Cat")) {
+            String ini = "" + aux.charAt(0);
+            aux = ini.toLowerCase() + aux.substring(1);
+        }else{
+            aux = "tab" + aux;
         }
-        else
-            doc = doc + "\npublic class " + nombre + " implements Serializable {\n";
+            
+        
+        String doc = "package " + paquete + ";\n\nimport javax.persistence.*;\nimport java.io.Serializable;\n";
+        
+        
+        
+        if (bandera){
+            doc = doc + "import java.util.Date;";
+        }
+        
+        doc = doc + "\n\n@Entity(name = \""+paquete+"\")\n@Table(name = \""+aux+"\")\n";
+        doc = doc + "public class " + nombre + " implements Serializable {\n";
         
         doc = doc + "\n\t@Id\n\t@GeneratedValue\n \t@Column(name = \"id\")\n";
         for(int i=0;i<at.size();i++){
