@@ -229,9 +229,11 @@ public class Interface extends javax.swing.JFrame {
         if (chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
             String ruta = chooser.getSelectedFile().toString();
             System.out.println("getSelectedFile() : " + ruta);
+            String ax = JOptionPane.showInputDialog("Package: ");
+
             for(int i = 0; i<pojo.size(); i++){
                 try {
-                    pojo.get(i).savePojo(ruta);
+                    pojo.get(i).savePojo(ruta, ax);
                 } catch (IOException ex) {
                     Logger.getLogger(Interface.class.getName()).log(Level.SEVERE, null, ex);
                 }
