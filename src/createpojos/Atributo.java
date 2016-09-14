@@ -48,13 +48,13 @@ public class Atributo {
         String funcion = this.nombre;
         String ini = "" + funcion.charAt(0);
         funcion = ini.toUpperCase() + funcion.substring(1);
-        String code = "\npublic "+this.tipo+" get"+funcion+"() {\n" +
-                    "\treturn "+this.nombre+";\n" +
-                    "}\n" +
+        String code = "\n\tpublic "+this.tipo+" get"+funcion+"() {\n" +
+                    "\t\treturn "+this.nombre+";\n" +
+                    "\t}" +
                     "\n" +
-                    "public void set"+funcion+"("+this.tipo+" "+this.nombre+") {\n" +
-                    "\tthis."+this.nombre+" = "+this.nombre+";" +
-                    "\n}" +
+                    "\tpublic void set"+funcion+"("+this.tipo+" "+this.nombre+") {\n" +
+                    "\t\tthis."+this.nombre+" = "+this.nombre+";" +
+                    "\n\t}" +
                     "\n\n";
         
         return code;

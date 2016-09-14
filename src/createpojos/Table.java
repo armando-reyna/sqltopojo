@@ -158,8 +158,8 @@ public class Table {
             doc = doc + "import java.util.Date;";
         }
         
-        doc = doc + "\n\n@Entity(name = \""+paquete+"\")\n@Table(name = \""+aux+"\")\n";
-        doc = doc + "public class " + nombre + " implements Serializable {\n";
+        doc = doc + "\n\n@Entity(name = \""+paquete+"."+this.nombre+"\")\n@Table(name = \""+aux+"\")\n";
+        doc = doc + "public class " + this.nombre + " implements Serializable {\n";
         
         doc = doc + "\n\t@Id\n\t@GeneratedValue\n \t@Column(name = \"id\")\n";
         for(int i=0;i<at.size();i++){
